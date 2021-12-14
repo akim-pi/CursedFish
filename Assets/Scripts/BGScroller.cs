@@ -18,14 +18,23 @@ public class BGScroller : MonoBehaviour
         length = collider.size.x;
         collider.enabled = false;
 
-        rb.velocity = new Vector2(scrollSpeed, 0);
+        //rb.velocity = new Vector2(scrollSpeed, 0);
 
         resetObstacle();
+    }
+
+    private void FixedUpdate() 
+    {
+        if(scrollSpeed > -30)
+            scrollSpeed -= (Time.deltaTime * 0.2f);
+        else
+            scrollSpeed -= (Time.deltaTime * 0.05f);   
     }
 
     // Update is called once per frame
     void Update()
     {
+        rb.velocity = new Vector2(scrollSpeed, 0);
         if(transform.position.x < -length)
         {
             Vector2 resetPosition = new Vector2(length * 2f, 0);
@@ -37,6 +46,6 @@ public class BGScroller : MonoBehaviour
 
     void resetObstacle()
     {
-        transform.GetChild(0).localPosition = new Vector3(0, Random.Range(-3,3), 0);
+        transform.GetChild(0).localPosition = new Vector3(0, Random.Range(-1,7), 0);
     }
 }
